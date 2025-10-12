@@ -3,18 +3,9 @@ import streamlit_authenticator as stauth
 def get_authenticator():
     credentials = {
         "usernames": {
-            "admin": {
-                "name": "Admin",
-                "password": stauth.Hasher(["demo123"]).generate()[0]
-            },
-            "odina": {
-                "name": "Odina",
-                "password": stauth.Hasher(["odina456"]).generate()[0]
-            },
-            "guest": {
-                "name": "Guest User",
-                "password": stauth.Hasher(["guest789"]).generate()[0]
-            }
+            "admin": {"name": "Admin", "password": "demo123"},
+            "odina": {"name": "Odina", "password": "odina456"},
+            "guest": {"name": "Guest", "password": "guest789"}
         }
     }
 
@@ -24,6 +15,6 @@ def get_authenticator():
         key="neoapop_ai_sig",
         cookie_expiry_days=1
     )
-
     return authenticator
+
 
