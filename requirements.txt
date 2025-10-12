@@ -4,3 +4,4 @@ pandas==2.2.2
 numpy==1.26.4
 rdkit-pypi==2022.9.5
 Pillow==10.3.0
+scikit-learn==1.5.1
