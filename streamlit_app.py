@@ -10,22 +10,28 @@ try:
 except ImportError:
     RDKit_AVAILABLE = False
 
-# 🔐 Streamlit Authenticator
 import streamlit_authenticator as stauth
 
 # ============================
-# Foydalanuvchi credentials
+# 🔐 Bir nechta foydalanuvchi credentials
 # ============================
 credentials = {
     "usernames": {
         "admin": {
             "name": "Admin",
-            "password": "demo123"  # Oddiy matn — auto hash bo‘ladi
+            "password": "demo123"
+        },
+        "odina": {
+            "name": "Odina",
+            "password": "odina456"
+        },
+        "guest": {
+            "name": "Guest User",
+            "password": "guest789"
         }
     }
 }
 
-# Authenticator obyektini yaratish
 authenticator = stauth.Authenticate(
     credentials=credentials,
     cookie_name="neoapop_ai_cookie",
@@ -33,12 +39,8 @@ authenticator = stauth.Authenticate(
     cookie_expiry_days=1
 )
 
-# Login oynasi
 name, auth_status, username = authenticator.login("Login", "main")
 
-# ============================
-# Agar login muvaffaqiyatli bo‘lsa
-# ============================
 if auth_status:
     st.sidebar.success(f"Xush kelibsiz, {name}!")
     authenticator.logout("Logout", "sidebar")
@@ -46,14 +48,12 @@ if auth_status:
     st.title("NeoApop-AI 🚀 (Pro demo)")
     st.write("Salom! Bu kengaytirilgan AI + Drug Discovery platforma demo versiyasi.")
 
-    # Tablar: Molekula / CSV / AI demo
     tab1, tab2, tab3 = st.tabs(["🧪 Molekula", "📁 CSV yuklash", "🧠 AI demo"])
 
     # Tab 1 - Molekula tahlili
     with tab1:
         st.header("🧬 Molekula tahlili (SMILES orqali)")
         smiles = st.text_input("SMILES kiriting (masalan: CC(=O)O yoki c1ccccc1):")
-
         if st.button("Tahlil qilish"):
             if not smiles:
                 st.warning("Iltimos SMILES kiriting.")
@@ -81,12 +81,10 @@ if auth_status:
         st.header("📂 CSV yuklash (batch tahlil)")
         st.write("Faylda `smiles` nomli ustun bo‘lishi kerak.")
         file = st.file_uploader("CSV faylni tanlang", type=["csv"])
-
         if file is not None:
             df = pd.read_csv(file)
             st.write("Fayldagi ma'lumotlar:")
             st.dataframe(df.head())
-
             if "smiles" not in df.columns:
                 st.error("CSV faylda `smiles` ustuni topilmadi.")
             elif st.button("Hisoblashni boshlash"):
@@ -121,9 +119,6 @@ if auth_status:
             else:
                 st.warning("SMILES kiriting.")
 
-# ============================
-# Login muvaffaqiyatsiz
-# ============================
 elif auth_status is False:
     st.error("Login yoki parol noto‘g‘ri ❌")
 else:
