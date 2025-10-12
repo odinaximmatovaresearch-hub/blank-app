@@ -1,8 +1,7 @@
-streamlit==1.39.0
-streamlit-authenticator==0.3.2
-rdkit-pypi
+streamlit
+streamlit-authenticator
 pandas
 numpy
+rdkit-pypi
 scikit-learn
-joblib
-
+deep-translator
