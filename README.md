@@ -1,8 +1,14 @@
-# NeoApop-AI Streamlit App 🚀
+# 🧬 NeoApop-AI (Professional)
+AI yordamida kimyoviy molekulalarni tahlil va faolligini bashorat qiluvchi platforma.
 
-Bu loyiha **Drug Discovery + AI demo platforma** ni Streamlit orqali ishlatadi.
+## 🔧 Texnologiyalar
+- Streamlit (frontend)
+- RDKit (descriptorlar)
+- Scikit-learn (ML modeli)
+- Streamlit Authenticator (login)
+- SQLite (ma’lumotlar bazasi)
 
-## 📦 O‘rnatish
-
+## 🚀 Ishga tushirish
 ```bash
 pip install -r requirements.txt
+streamlit run app.py
