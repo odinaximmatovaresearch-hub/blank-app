@@ -1,10 +1,6 @@
-streamlit
-pandas
-numpy
-rdkit-pypi
-scikit-learn
-joblib
-streamlit-authenticator
-sqlalchemy
-pillow
-
+streamlit==1.38.0
+streamlit-authenticator==0.3.2
+pandas==2.2.2
+numpy==1.26.4
+rdkit-pypi==2022.9.5
+Pillow==10.3.0
