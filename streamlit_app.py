@@ -1,4 +1,3 @@
-# app.py
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -11,32 +10,35 @@ try:
 except ImportError:
     RDKit_AVAILABLE = False
 
-# Streamlit Authenticator
+# 🔐 Streamlit Authenticator
 import streamlit_authenticator as stauth
 
-# Foydalanuvchilar ro‘yxati
-names = ["Admin"]
-usernames = ["admin"]
-passwords = ["demo123"]
-
-# Cookie sozlamalari
-cookie_name = "neoapop_ai_cookie"
-cookie_key = "neoapop_ai_sig"
-cookie_expiry_days = 1
+# ============================
+# Foydalanuvchi credentials
+# ============================
+credentials = {
+    "usernames": {
+        "admin": {
+            "name": "Admin",
+            "password": "demo123"  # Oddiy matn — auto hash bo‘ladi
+        }
+    }
+}
 
 # Authenticator obyektini yaratish
 authenticator = stauth.Authenticate(
-    names,
-    usernames,
-    passwords,
-    cookie_name,
-    cookie_key,
-    cookie_expiry_days
+    credentials=credentials,
+    cookie_name="neoapop_ai_cookie",
+    key="neoapop_ai_sig",
+    cookie_expiry_days=1
 )
 
 # Login oynasi
 name, auth_status, username = authenticator.login("Login", "main")
 
+# ============================
+# Agar login muvaffaqiyatli bo‘lsa
+# ============================
 if auth_status:
     st.sidebar.success(f"Xush kelibsiz, {name}!")
     authenticator.logout("Logout", "sidebar")
@@ -119,8 +121,12 @@ if auth_status:
             else:
                 st.warning("SMILES kiriting.")
 
+# ============================
+# Login muvaffaqiyatsiz
+# ============================
 elif auth_status is False:
     st.error("Login yoki parol noto‘g‘ri ❌")
 else:
     st.warning("Iltimos login va parolni kiriting.")
+
 
