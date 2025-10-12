@@ -17,3 +17,5 @@ def predict_activity(model, descriptors):
     else:
         y_pred = model.predict(X)[0]
     return round(float(y_pred), 2)
+# model fayllari uchun paket
+
