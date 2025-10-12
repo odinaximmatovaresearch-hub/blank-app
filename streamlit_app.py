@@ -56,7 +56,7 @@ if auth_status:
             if not smiles:
                 st.warning("Iltimos SMILES kiriting.")
             elif not RDKit_AVAILABLE:
-                st.error("RDKit o‘rnatilmagan — descriptorlar hisoblanmaydi.")
+                st.info("RDKit o‘rnatilmagan — descriptorlar hisoblanmaydi.")
             else:
                 mol = Chem.MolFromSmiles(smiles)
                 if mol:
@@ -89,7 +89,7 @@ if auth_status:
                 st.error("CSV faylda `smiles` ustuni topilmadi.")
             elif st.button("Hisoblashni boshlash"):
                 if not RDKit_AVAILABLE:
-                    st.warning("RDKit mavjud emas, descriptorlar hisoblanmaydi.")
+                    st.info("RDKit mavjud emas, descriptorlar hisoblanmaydi.")
                 else:
                     results = []
                     for smi in df["smiles"]:
@@ -123,3 +123,4 @@ elif auth_status is False:
     st.error("Login yoki parol noto‘g‘ri ❌")
 else:
     st.warning("Iltimos login va parolni kiriting.")
+
