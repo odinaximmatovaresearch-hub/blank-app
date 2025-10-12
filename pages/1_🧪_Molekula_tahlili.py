@@ -22,3 +22,4 @@ if smiles:
             st.error("❌ Noto‘g‘ri SMILES kiritildi.")
 
 
+
