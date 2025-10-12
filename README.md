@@ -1,6 +1,6 @@
 # NeoApop-AI Streamlit App 🚀
 
-Bu loyiha **Drug Discovery + AI demo platforma** ni Streamlit orqali ishlatadi.  
+Bu loyiha **Drug Discovery + AI demo platforma** ni Streamlit orqali ishlatadi.
 
 ## 📦 O‘rnatish
 
