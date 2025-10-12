@@ -5,3 +5,4 @@ numpy
 rdkit-pypi
 scikit-learn
 deep-translator
+rdkit-pypi
