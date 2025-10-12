@@ -1,4 +1,10 @@
 streamlit
-streamlit-authenticator
 pandas
 numpy
+rdkit-pypi
+scikit-learn
+joblib
+streamlit-authenticator
+sqlalchemy
+pillow
+
