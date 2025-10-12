@@ -3,16 +3,24 @@ from utils.authentication import get_authenticator
 
 st.set_page_config(page_title="NeoApop-AI", page_icon="🧬", layout="wide")
 
-# 🔐 Autentifikatsiya
 authenticator = get_authenticator()
 
-# 🟢 To‘g‘ri usul — faqat keyword argument ishlatamiz
-name, auth_status, username = authenticator.login("Login", location="main")
+# 💡 LOGIN funksiyasi uchun universal usul
+try:
+    # yangi versiyalar uchun
+    name, auth_status, username = authenticator.login("Login", location="main")
+except TypeError:
+    try:
+        # eski versiyalar uchun
+        name, auth_status, username = authenticator.login("Login", "main")
+    except Exception:
+        # eng eski versiya – umuman parametrlarsiz
+        name, auth_status, username = authenticator.login("Login")
 
-# 🔍 Auth holatini tekshiramiz
-if auth_status is False:
+# 🔐 Auth holatini tekshiramiz
+if auth_status == False:
     st.error("❌ Login yoki parol noto‘g‘ri.")
-elif auth_status is None:
+elif auth_status == None:
     st.warning("🔐 Tizimga kiring.")
 else:
     authenticator.logout("Chiqish", "sidebar")
