@@ -16,17 +16,12 @@ authenticator = stauth.Authenticate(
     cookie_expiry_days=30
 )
 
-# Safe login funksiyasi
-def safe_login(authenticator):
-    try:
-        # location nomli argument emas, ikkinchi argument sifatida beriladi
-        return authenticator.login("Login", "sidebar")  
-    except Exception as e:
-        st.error(f"Login xatoligi: {e}")
-        return None, None, None
-
-# Login chaqirish
-name, auth_status, username = safe_login(authenticator)
+# Login to'g'ridan-to'g'ri chaqiriladi
+try:
+    name, auth_status, username = authenticator.login("Login", location="sidebar")
+except Exception as e:
+    st.error(f"Login xatoligi: {e}")
+    name, auth_status, username = None, None, None
 
 if auth_status:
     st.success(f"Salom, {name}!")
