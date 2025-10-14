@@ -1,14 +1,14 @@
 import streamlit as st
 import streamlit_authenticator as stauth
 
-# 🔐 Misol uchun foydalanuvchi ma'lumotlari
+# 1️⃣ — Foydalanuvchi ma'lumotlari
 credentials = {
     "usernames": {
         "user1": {"name": "User One", "password": "hashed_password1"},
     }
 }
 
-# 🔒 Authenticator obyektini yaratish
+# 2️⃣ — Authenticator obyektini yaratish
 authenticator = stauth.Authenticate(
     credentials=credentials,
     cookie_name="my_cookie_name",
@@ -16,20 +16,20 @@ authenticator = stauth.Authenticate(
     cookie_expiry_days=30
 )
 
-# ✅ Yangi login usuli (0.4.x va undan yuqori uchun)
+# 3️⃣ — Yangi login chaqiruvi (DIQQAT: fields ishlatiladi!)
 try:
     name, auth_status, username = authenticator.login(
-        fields={"Form name": "Login"},  # Yangi format!
+        fields={"Form name": "Login", "Username": "Username", "Password": "Password"},
         location="sidebar"
     )
 except Exception as e:
     st.error(f"Login xatoligi: {e}")
     name, auth_status, username = None, None, None
 
-# 🔁 Natijani tekshirish
+# 4️⃣ — Login natijasini tekshirish
 if auth_status:
     st.success(f"Salom, {name}!")
 elif auth_status is False:
-    st.error("Login muvaffaqiyatsiz. Parol yoki foydalanuvchi noto‘g‘ri.")
+    st.error("Login muvaffaqiyatsiz. Foydalanuvchi yoki parol xato.")
 else:
     st.info("Iltimos, login qiling.")
