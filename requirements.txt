@@ -1,8 +1,5 @@
 streamlit
-streamlit-authenticator
 pandas
 numpy
-rdkit-pypi
-scikit-learn
-deep-translator
-rdkit-pypi
+rdkit
+streamlit-authenticator==0.3.2
