@@ -1,7 +1,6 @@
 import streamlit as st
 import streamlit_authenticator as stauth
 
-# Authenticator yaratish (misol)
 credentials = {
     "usernames": {
         "user1": {"name": "User One", "password": "hashed_password1"},
@@ -16,21 +15,16 @@ authenticator = stauth.Authenticate(
     cookie_expiry_days=30
 )
 
-# Safe login funksiyasi
-def safe_login(authenticator):
-    try:
-        # 'location' parametrini to'g'ri beramiz
-        return authenticator.login("Login", location="sidebar")  # yoki 'main', 'unrendered'
-    except Exception as e:
-        st.error(f"Login xatoligi: {e}")
-        return None, None, None
-
-# Login chaqirish
-name, auth_status, username = safe_login(authenticator)
+try:
+    # ✅ Faqat shu tarzda — location= yozilmaydi!
+    name, auth_status, username = authenticator.login("Login", "sidebar")
+except Exception as e:
+    st.error(f"Login xatoligi: {e}")
+    name, auth_status, username = None, None, None
 
 if auth_status:
-    st.write(f"Salom, {name}!")
+    st.success(f"Salom, {name}!")
 elif auth_status is False:
-    st.error("Login muvaffaqiyatsiz")
+    st.error("Login muvaffaqiyatsiz. Iltimos, qayta urinib ko‘ring.")
 else:
-    st.info("Iltimos, login qiling")
+    st.info("Iltimos, login qiling.")
