@@ -1,36 +1,24 @@
 import streamlit as st
-import streamlit_authenticator as stauth
+from utils.authentication import get_authenticator
 
-# Authenticator yaratish (misol)
-credentials = {
-    "usernames": {
-        "user1": {"name": "User One", "password": "hashed_password1"},
-        "user2": {"name": "User Two", "password": "hashed_password2"},
-    }
-}
+st.set_page_config(page_title="NeoApop-AI", page_icon="🧬", layout="wide")
 
-authenticator = stauth.Authenticate(
-    credentials,
-    "my_cookie_name",
-    "my_signature_key",
-    cookie_expiry_days=30
-)
+authenticator = get_authenticator()
 
-# Safe login funksiyasi
-def safe_login(authenticator):
-    try:
-        # 'location' parametrini to'g'ri beramiz
-        return authenticator.login("Login", location="sidebar")  # yoki 'main', 'unrendered'
-    except Exception as e:
-        st.error(f"Login xatoligi: {e}")
-        return None, None, None
+# ✅ faqat bitta usulni sinaymiz (modern versiyalar uchun)
+try:
+    name, auth_status, username = authenticator.login("Login", location="main")
+except TypeError:
+    # agar versiya eski bo‘lsa — pozitsional argument orqali
+    name, auth_status, username = authenticator.login("Login", "main")
 
-# Login chaqirish
-name, auth_status, username = safe_login(authenticator)
-
-if auth_status:
-    st.write(f"Salom, {name}!")
-elif auth_status is False:
-    st.error("Login muvaffaqiyatsiz")
+if auth_status is False:
+    st.error("❌ Login yoki parol noto‘g‘ri.")
+elif auth_status is None:
+    st.warning("🔐 Iltimos, tizimga kiring.")
 else:
-    st.info("Iltimos, login qiling")
+    authenticator.logout("Chiqish", "sidebar")
+    st.sidebar.success(f"👋 Xush kelibsiz, {name}!")
+
+    st.title("🧬 NeoApop-AI Platformasi")
+    st.write("Bu yerda siz molekulalarni tahlil qilish, CSV fayllarni yuklash va AI yordamida bashorat qilish imkoniyatiga egasiz.")
