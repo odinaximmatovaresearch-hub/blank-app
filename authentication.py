@@ -1,28 +1,37 @@
 import streamlit as st
 import streamlit_authenticator as stauth
 
-# Authenticator yaratish (misol)
+# Misol uchun credentials
 credentials = {
     "usernames": {
-        "user1": {"name": "User One", "password": "hashed_password1"},
-        "user2": {"name": "User Two", "password": "hashed_password2"},
+        "user1": {
+            "name": "User One",
+            "password": "hashed_password1"  # Haqiqiy foydalanishda hashed bo'lishi kerak!
+        },
+        "user2": {
+            "name": "User Two",
+            "password": "hashed_password2"
+        },
     }
 }
 
+# Authenticator yaratish
 authenticator = stauth.Authenticate(
     credentials,
-    "my_cookie_name",
-    "my_signature_key",
+    "my_cookie_name",      # cookie nomi
+    "my_signature_key",    # imzo kaliti
     cookie_expiry_days=30
 )
 
-# Login to'g'ridan-to'g'ri chaqiriladi
+# 🔒 LOGIN
 try:
-    name, auth_status, username = authenticator.login("Login", location="sidebar")
+    # E’tibor bering: location= emas, faqat pozitsion argument
+    name, auth_status, username = authenticator.login("Login", "sidebar")
 except Exception as e:
     st.error(f"Login xatoligi: {e}")
     name, auth_status, username = None, None, None
 
+# 🧭 LOGIN NATIJASINI TEKSHIRISH
 if auth_status:
     st.success(f"Salom, {name}!")
 elif auth_status is False:
