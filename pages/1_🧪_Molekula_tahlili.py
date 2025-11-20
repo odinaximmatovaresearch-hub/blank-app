@@ -13,13 +13,12 @@ st.title("🧬 Molekula tahlili (SMILES orqali)")
 
 smiles = st.text_input("SMILES kiriting (masalan: CC(=O)O yoki c1ccccc1):")
 
-def draw_3d(smiles):
-    view = py3Dmol.view(width=400, height=400)
+def draw_3d_html(smiles):
+    view = py3Dmol.view(width=500, height=400)
     view.addModel(smiles, "smi")
     view.setStyle({"stick": {}})
     view.zoomTo()
-    view.show()
-    return view
+    return view._repr_html_()
 
 if smiles:
     if RDKit_AVAILABLE:
@@ -29,9 +28,11 @@ if smiles:
         else:
             st.error("❌ Noto‘g‘ri SMILES kiritildi.")
     else:
-        st.warning("⚠ RDKit yo‘q — 3D ko‘rinish chizilmoqda.")
-        view = draw_3d(smiles)
-        st.components.v1.html(view._repr_html_(), height=450)
+        st.warning("⚠ RDKit topilmadi — 3D visualizatsiya ishlatilmoqda.")
+        html = draw_3d_html(smiles)
+        st.components.v1.html(html, height=450)
+
+
 
 
 
