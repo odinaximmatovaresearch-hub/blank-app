@@ -43,5 +43,3 @@ elif auth_status is False:
     st.error("❌ Login yoki parol noto‘g‘ri.")
 else:
     st.info("Iltimos, login qiling.")
-)
-
